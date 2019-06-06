@@ -25,6 +25,8 @@ class CatRentalRequest < ApplicationRecord
     end
   end
 
+  belongs_to :user
+
   def approved?
     self.status == 'APPROVED'
   end

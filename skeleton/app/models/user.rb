@@ -8,6 +8,14 @@ class User < ApplicationRecord
   
   after_initialize :ensure_session_token
 
+  has_many :cats,
+    foreign_key: :user_id,
+    class_name: :Cat
+  
+  has_many :cat_rental_requests,
+    foreign_key: :user_id,
+    class_name: :CatRentalRequest
+
 
   def self.find_by_credentials(name, password)
     user = User.find_by(user_name: name)

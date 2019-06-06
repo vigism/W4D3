@@ -6,6 +6,7 @@ class CatRentalRequestsController < ApplicationController
 
   def create
     @rental_request = CatRentalRequest.new(cat_rental_request_params)
+    @rental_request.user_id = current_user.id
     if @rental_request.save
       redirect_to cat_url(@rental_request.cat)
     else
@@ -15,6 +16,7 @@ class CatRentalRequestsController < ApplicationController
   end
 
   def deny
+    redirect_to cats_url unless @cat.user_id == current_user.id
     current_cat_rental_request.deny!
     redirect_to cat_url(current_cat)
   end
